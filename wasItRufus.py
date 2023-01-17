@@ -20,16 +20,17 @@ def git_status(git_dir):
     commit_date = subprocess.run(["git", "log", "-1", "--format=%cd"], stdout=subprocess.PIPE).stdout.strip().decode()
     author = subprocess.run(["git", "log", "-1", "--format=%an"], stdout=subprocess.PIPE).stdout.strip().decode()
 
-    #compares the commit date with the current time
+    # compares the commit date with the current time
     commit_time = datetime.strptime(commit_date, "%c %z")
     now = datetime.now(timezone.utc)
     days_ago = (now - commit_time).days
     recent_commit = days_ago <= 7
    
-    #checks if the author of the most recent commit is Rufus
+    # checks if the author of the most recent commit is Rufus
     commit_by_rufus = author == "Rufus"
     
-
+    # if the active branch needs to be a boolean value the code is below
+    # active_branch = bool(branch)
     print("Active branch: ", branch)
     print("Local Changes: ", bool(modified))
     print("Recent Commits: ", recent_commit)
